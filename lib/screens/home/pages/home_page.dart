@@ -28,46 +28,58 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(builder: (context, orientation) {
-      return BlocBuilder<HomeBloc, HomeState>(
-        bloc: bloc,
-        builder: (context, state) {
-          return ModalProgressHUD(
-            inAsyncCall: state.isLoading,
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: MyColors.primaryColor,
-                title: Text(
-                  "Home Data",
-                  style: MyFonts.boldFontRoboto.copyWith(
-                    color: MyColors.white,
-                    fontSize: orientation == Orientation.portrait ? 22.sp : 16.sp,
+    return OrientationBuilder(
+      builder: (context, orientation) {
+        return BlocConsumer<HomeBloc, HomeState>(
+          bloc: bloc,
+          listener: (context, state) {
+            if (state.errorMessage.isNotEmpty) {
+              // Show Snackbar when error occurs
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.errorMessage),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return ModalProgressHUD(
+              inAsyncCall: state.isLoading,
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: MyColors.primaryColor,
+                  title: Text(
+                    "Home Data",
+                    style: MyFonts.boldFontRoboto.copyWith(
+                      color: MyColors.white,
+                      fontSize: orientation == Orientation.portrait ? 22.sp : 16.sp,
+                    ),
                   ),
                 ),
-              ),
-              body: ListView.separated(
-                  padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 24.w),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailsPage(dataModel: state.dataList[index]),
+                body: ListView.separated(
+                    padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 24.w),
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailsPage(dataModel: state.dataList[index]),
+                          ),
                         ),
-                      ),
-                      child: HomeCard(
-                        dataModel: state.dataList[index],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => SizedBox(
-                        height: orientation == Orientation.portrait ? 10.h : 30.h,
-                      ),
-                  itemCount: state.dataList.length),
-            ),
-          );
-        },
-      );
-    });
+                        child: HomeCard(
+                          dataModel: state.dataList[index],
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: orientation == Orientation.portrait ? 10.h : 30.h,
+                        ),
+                    itemCount: state.dataList.length),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

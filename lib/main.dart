@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test_data/constants/theme_constant.dart';
 
 import 'injection.dart';
 import 'screens/home/pages/home_page.dart';
@@ -21,9 +22,10 @@ class MyApp extends StatelessWidget {
         designSize: const Size(393, 852),
         builder: (context, child) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+              colorScheme: ColorScheme.fromSeed(seedColor: MyColors.primaryColor),
               useMaterial3: true,
             ),
             home: HomePage(),
