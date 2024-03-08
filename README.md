@@ -1,16 +1,13 @@
 # test_data
 
-A new Flutter project.
+Flutter Sdk using 3.19.1
 
-## Getting Started
+Statement management : Bloc
 
-This project is a starting point for a Flutter application.
+clone the project on your Android Studio by using  git clone https://github.com/AbdulrazzaqDraw/technologies-test.git
 
-A few resources to get you started if this is your first Flutter project:
+open terminal type: flutter pub get
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+run the App on Any device you want
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Thanks.
